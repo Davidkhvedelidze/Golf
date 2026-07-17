@@ -1,0 +1,45 @@
+@import "tailwindcss";
+
+:root {
+  --color-paper: #faf6ee;
+  --color-ink: #201d1a;
+  --color-ink-soft: #55504a;
+  --color-line: #ddd3bf;
+  --color-pine: #1e4a3d;
+  --color-pine-dark: #143329;
+  --color-amber: #b1802f;
+  --color-amber-soft: #f1e4c8;
+  --color-brick: #9c4a3c;
+  --color-brick-soft: #f1e0da;
+}
+
+@theme inline {
+  --color-paper: var(--color-paper);
+  --color-ink: var(--color-ink);
+  --color-ink-soft: var(--color-ink-soft);
+  --color-line: var(--color-line);
+  --color-pine: var(--color-pine);
+  --color-pine-dark: var(--color-pine-dark);
+  --color-amber: var(--color-amber);
+  --color-amber-soft: var(--color-amber-soft);
+  --color-brick: var(--color-brick);
+  --color-brick-soft: var(--color-brick-soft);
+
+  --font-display: var(--font-fraunces);
+  --font-body: var(--font-source-serif);
+  --font-ui: var(--font-archivo);
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+
+::selection {
+  background: var(--color-amber-soft);
+  color: var(--color-ink);
+}
+
+.tabular-nums {
+  font-feature-settings: "tnum" 1, "lnum" 1;
+}
