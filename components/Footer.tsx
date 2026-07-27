@@ -2,6 +2,7 @@ import Link from "next/link";
 import { client } from "@/sanity/client";
 import { NAV_CATEGORIES_QUERY } from "@/sanity/queries";
 import { SITE_NAME, SITE_TAGLINE } from "@/lib/site";
+import { Wordmark } from "@/components/Wordmark";
 import type { CategoryRef } from "@/sanity/types";
 
 export async function Footer() {
@@ -15,7 +16,7 @@ export async function Footer() {
     <footer className="border-t border-line">
       <div className="mx-auto grid max-w-6xl gap-10 px-6 py-12 font-ui text-sm sm:grid-cols-3">
         <div>
-          <p className="font-display text-xl italic text-ink">{SITE_NAME}</p>
+          <Wordmark className="text-xl" />
           <p className="mt-2 max-w-xs text-ink-soft">{SITE_TAGLINE}</p>
         </div>
 

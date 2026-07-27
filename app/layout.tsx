@@ -4,6 +4,8 @@ import Script from "next/script";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { JsonLd } from "@/components/JsonLd";
+import { buildOrganizationJsonLd, buildWebSiteJsonLd } from "@/lib/seo";
 import { GA_MEASUREMENT_ID, SITE_NAME, SITE_TAGLINE, SITE_URL } from "@/lib/site";
 
 const fraunces = Fraunces({
@@ -46,6 +48,8 @@ export default function RootLayout({
       className={`${fraunces.variable} ${sourceSerif.variable} ${archivo.variable} h-full`}
     >
       <body className="flex min-h-full flex-col bg-paper font-body text-ink antialiased">
+        <JsonLd data={buildOrganizationJsonLd()} />
+        <JsonLd data={buildWebSiteJsonLd()} />
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
