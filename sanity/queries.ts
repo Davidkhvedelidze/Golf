@@ -1,5 +1,5 @@
 import { defineQuery } from 'next-sanity'
-import { articleCardFragment, authorFragment, bodyFragment, productFragment } from './fragments'
+import { articleCardFragment, authorFragment, bodyFragment, imageFragment, productFragment } from './fragments'
 
 export const AUTHOR_QUERY = defineQuery(/* groq */ `
   *[_type == "author"][0]{
@@ -56,6 +56,7 @@ export const ARTICLE_QUERY = defineQuery(/* groq */ `
     "category": category->{ name, "slug": slug.current },
     "author": author->{ ${authorFragment} },
     products[]->{ ${productFragment} },
+    "heroImage": products[0]->image{ ${imageFragment} },
     ${bodyFragment},
     publishedAt,
     updatedAt,
