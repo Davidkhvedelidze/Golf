@@ -21,12 +21,13 @@ export default async function HomePage() {
             Launch monitors &middot; Rangefinders &middot; GPS watches
           </p>
           <h1 className="mt-4 max-w-2xl font-display text-4xl font-semibold leading-[1.05] text-ink sm:text-5xl">
-            The spec sheet is marketing. Here&apos;s what we measured.
+            The spec sheet is marketing. Here&apos;s the real verdict.
           </h1>
           <p className="mt-5 max-w-xl font-body text-lg leading-relaxed text-ink-soft">
-            Independent, hands-on testing of golf tech for the $200&ndash;800 range &mdash; built
-            for beginner-to-mid handicap golfers deciding between real options, not chasing tour
-            pro gear.
+            The real cost, the real space you need, and the real verdict on golf tech in the
+            $200&ndash;800 range &mdash; built from owner data, subscription fine print, and
+            honest space math, for beginner-to-mid handicap golfers deciding between real
+            options, not chasing tour pro gear.
           </p>
         </div>
         <div className="flex flex-col justify-end md:col-span-4">
