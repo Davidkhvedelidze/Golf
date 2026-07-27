@@ -3,14 +3,36 @@ import type {
   BreadcrumbList,
   FAQPage,
   ItemList,
+  Organization,
   Person,
   Product as SchemaProduct,
+  WebSite,
   WithContext,
 } from "schema-dts";
 import type { Article, Author, FaqItem, Product } from "@/sanity/types";
 import { urlFor } from "@/sanity/image";
 import { pickAffiliateLink } from "@/lib/product";
-import { SITE_URL } from "@/lib/site";
+import { SITE_NAME, SITE_TAGLINE, SITE_URL } from "@/lib/site";
+
+export function buildOrganizationJsonLd(): WithContext<Organization> {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: SITE_NAME,
+    url: SITE_URL,
+    logo: `${SITE_URL}/icon`,
+  };
+}
+
+export function buildWebSiteJsonLd(): WithContext<WebSite> {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: SITE_NAME,
+    description: SITE_TAGLINE,
+    url: SITE_URL,
+  };
+}
 
 export function buildBreadcrumbJsonLd(
   items: { label: string; href: string }[]
