@@ -185,6 +185,7 @@ export interface Article {
   category: CategoryRef
   author: Author
   products: Product[]
+  heroImage?: SanityImage
   body: ArticleBodyBlock[]
   publishedAt: string
   updatedAt?: string
