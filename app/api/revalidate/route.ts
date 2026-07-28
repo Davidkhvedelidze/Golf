@@ -22,7 +22,10 @@ export async function POST(req: NextRequest) {
       return new Response("Missing tags", { status: 400 });
     }
 
-    body.tags.forEach((tag) => revalidateTag(tag, "max"));
+    // { expire: 0 } forces immediate cache expiry so the webhook's change is
+    // live on the very next request. "max" would only mark tags stale for
+    // background stale-while-revalidate, which doesn't fit a Studio publish.
+    body.tags.forEach((tag) => revalidateTag(tag, { expire: 0 }));
 
     return NextResponse.json({ revalidated: true, tags: body.tags, now: Date.now() });
   } catch (err) {
