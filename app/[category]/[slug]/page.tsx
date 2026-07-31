@@ -92,7 +92,7 @@ export default async function ArticlePage({ params }: Props) {
     <div className="mx-auto max-w-3xl px-6 py-10">
       <JsonLd data={buildBreadcrumbJsonLd(breadcrumbs)} />
       {article.type === "review" && article.products.length === 1 && (
-        <JsonLd data={buildProductReviewJsonLd(article.products[0], article)} />
+        <JsonLd data={buildProductReviewJsonLd(article.products[0], article, articleUrl)} />
       )}
       {article.type === "best-of" && article.products.length > 0 && (
         <JsonLd data={buildItemListJsonLd(article.products, articleUrl)} />

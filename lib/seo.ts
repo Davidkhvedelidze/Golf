@@ -3,6 +3,7 @@ import type {
   BreadcrumbList,
   FAQPage,
   ItemList,
+  Offer,
   Organization,
   Person,
   Product as SchemaProduct,
@@ -49,11 +50,28 @@ export function buildBreadcrumbJsonLd(
   };
 }
 
+// Google requires a Product to carry offers, review, or aggregateRating.
+// We always have a price once a product is publishable, so offers is the
+// one we can guarantee; fall back to the article URL until an affiliate
+// link is approved. There's no discontinued/unavailable signal in the
+// product schema yet, so InStock is the only availability we can assert.
+function buildProductOffer(product: Product, fallbackUrl: string): Offer {
+  return {
+    "@type": "Offer",
+    url: pickAffiliateLink(product)?.url ?? fallbackUrl,
+    priceCurrency: "USD",
+    price: product.priceUSD,
+    availability: "https://schema.org/InStock",
+  };
+}
+
 export function buildProductReviewJsonLd(
   product: Product,
-  article: Article
-): WithContext<SchemaProduct> {
-  const link = pickAffiliateLink(product);
+  article: Article,
+  articleUrl: string
+): WithContext<SchemaProduct> | null {
+  if (!product.priceUSD) return null;
+
   return {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -72,25 +90,21 @@ export function buildProductReviewJsonLd(
       author: { "@type": "Person", name: article.author.name },
       datePublished: article.publishedAt,
     },
-    ...(link
-      ? {
-          offers: {
-            "@type": "Offer",
-            price: product.priceUSD,
-            priceCurrency: "USD",
-            url: link.url,
-            availability: "https://schema.org/InStock",
-          },
-        }
-      : {}),
+    offers: buildProductOffer(product, articleUrl),
   };
 }
 
-export function buildItemListJsonLd(products: Product[], articleUrl: string): WithContext<ItemList> {
+export function buildItemListJsonLd(
+  products: Product[],
+  articleUrl: string
+): WithContext<ItemList> | null {
+  const withPrice = products.filter((product) => product.priceUSD);
+  if (withPrice.length === 0) return null;
+
   return {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    itemListElement: products.map((product, index) => ({
+    itemListElement: withPrice.map((product, index) => ({
       "@type": "ListItem",
       position: index + 1,
       item: {
@@ -98,6 +112,7 @@ export function buildItemListJsonLd(products: Product[], articleUrl: string): Wi
         name: product.name,
         image: product.image?.asset?.url ? urlFor(product.image).width(800).url() : undefined,
         url: articleUrl,
+        offers: buildProductOffer(product, articleUrl),
       },
     })),
   };
