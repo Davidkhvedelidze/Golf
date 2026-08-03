@@ -6,7 +6,12 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { JsonLd } from "@/components/JsonLd";
 import { buildOrganizationJsonLd, buildWebSiteJsonLd } from "@/lib/seo";
-import { GA_MEASUREMENT_ID, SITE_NAME, SITE_TAGLINE, SITE_URL } from "@/lib/site";
+import {
+  GA_MEASUREMENT_ID,
+  SITE_NAME,
+  SITE_TAGLINE,
+  SITE_URL,
+} from "@/lib/site";
 
 const fraunces = Fraunces({
   variable: "--font-fraunces",
