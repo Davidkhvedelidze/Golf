@@ -25,6 +25,23 @@ export const article = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: 'mainImage',
+      title: 'Main image',
+      type: 'image',
+      group: 'content',
+      options: { hotspot: true },
+      fields: [
+        defineField({
+          name: 'alt',
+          title: 'Alternative text',
+          type: 'string',
+          validation: (rule) => rule.required(),
+        }),
+      ],
+      description:
+        "Optional. If left empty, the first product's image is used instead.",
+    }),
+    defineField({
       name: 'metaDescription',
       title: 'Meta description',
       type: 'text',

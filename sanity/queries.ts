@@ -56,7 +56,7 @@ export const ARTICLE_QUERY = defineQuery(/* groq */ `
     "category": category->{ name, "slug": slug.current },
     "author": author->{ ${authorFragment} },
     products[]->{ ${productFragment} },
-    "heroImage": products[0]->image{ ${imageFragment} },
+    "heroImage": coalesce(mainImage, products[0]->image){ ${imageFragment} },
     ${bodyFragment},
     publishedAt,
     updatedAt,

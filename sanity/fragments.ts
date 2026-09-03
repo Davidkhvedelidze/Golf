@@ -75,5 +75,5 @@ export const articleCardFragment = /* groq */ `
   updatedAt,
   "categorySlug": category->slug.current,
   "categoryName": category->name,
-  "heroImage": products[0]->image{ ${imageFragment} }
+  "heroImage": coalesce(mainImage, products[0]->image){ ${imageFragment} }
 `
