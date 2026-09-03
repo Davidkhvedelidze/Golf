@@ -16,6 +16,7 @@ import {
 } from "@/lib/seo";
 import { SITE_URL } from "@/lib/site";
 import { client, staticParamsClient } from "@/sanity/client";
+import { urlFor } from "@/sanity/image";
 import {
   ARTICLE_QUERY,
   ARTICLE_SLUGS_QUERY,
@@ -66,6 +67,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       type: "article",
       publishedTime: article.publishedAt,
       modifiedTime: article.updatedAt,
+      images: article.heroImage?.asset
+        ? [
+            {
+              url: urlFor(article.heroImage).width(1200).height(630).fit("crop").url(),
+              width: 1200,
+              height: 630,
+              alt: article.heroImage.alt || article.title,
+            },
+          ]
+        : [{ url: `${SITE_URL}/opengraph-image`, width: 1200, height: 630 }],
     },
   };
 }
