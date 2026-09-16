@@ -44,3 +44,6 @@ next-env.d.ts
 *.log
 .DS_Store
 .vscode/
+
+# Local CMS snapshots, image generation progress, and rollback data
+/.local/article-images/
