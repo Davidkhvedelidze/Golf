@@ -152,6 +152,14 @@ export const article = defineType({
     }),
   ],
   preview: {
-    select: { title: 'title', subtitle: 'type', media: 'products.0.image' },
+    select: {
+      title: 'title',
+      subtitle: 'type',
+      mainImage: 'mainImage',
+      productImage: 'products.0.image',
+    },
+    prepare({ title, subtitle, mainImage, productImage }) {
+      return { title, subtitle, media: mainImage ?? productImage }
+    },
   },
 })
