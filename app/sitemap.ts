@@ -19,7 +19,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ];
 
   try {
-    const entries = await client.fetch<SitemapEntry[]>(SITEMAP_QUERY);
+    // Without a revalidate window the sitemap is frozen at build time and
+    // misses every article published after the last deploy.
+    const entries = await client.fetch<SitemapEntry[]>(
+      SITEMAP_QUERY,
+      {},
+      { next: { revalidate: 3600, tags: ["article", "category"] } },
+    );
 
     const dynamicRoutes: MetadataRoute.Sitemap = entries
       .map((entry) => {
